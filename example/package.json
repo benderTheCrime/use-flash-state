@@ -22,5 +22,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@benderthecrime/components": "^2.0.3",
+    "styled-components": "^5.1.1"
+  }
 }
