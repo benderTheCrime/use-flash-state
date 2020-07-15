@@ -29,8 +29,8 @@ const Example = () => {
       setFlashState({showSuccessMessage: true})
     }}
   >
-    <Banner open={showSuccessMessage}>Success</Banner>
-    <Button type="submit">
+    <Banner open={showSuccessMessage} type="success">Success</Banner>
+    <Button type="submit">Submit</Button>
   </Form>
 }
 ```
