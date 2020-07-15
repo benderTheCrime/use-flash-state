@@ -20,7 +20,7 @@ import {useFlashState} from 'use-flash-state'
 import {Banner, Button, Form} from '@benderthecrime/components'
 
 const Example = () => {
-  const [{showSuccessMessage}, setFlashState] = useFlashState({showSuccessMessage: false})
+  const [{showSuccessMessage}, setFlashState] = useFlashState({showSuccessMessage: false}, 2000)
 
   return <Form
     onSubmit={(e) => {
