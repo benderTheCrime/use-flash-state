@@ -1,29 +1,21 @@
-import { useMyHook } from './'
-import { renderHook, act } from "@testing-library/react-hooks";
+import {act, renderHook} from '@testing-library/react-hooks'
 
-// mock timer using jest
-jest.useFakeTimers();
+import {useFlashState} from './'
 
-describe('useMyHook', () => {
-  it('updates every second', () => {
-    const { result } = renderHook(() => useMyHook());
+jest.useFakeTimers()
 
-    expect(result.current).toBe(0);
+describe('useFlashState', () => {
+  it('updates and then resets after one second', () => {
+    const {result} = renderHook(() => useFlashState({showSuccessMessage: false}, 1000))
 
-    // Fast-forward 1sec
-    act(() => {
-      jest.advanceTimersByTime(1000);
-    });
+    const [, setFlashState] = result.current
 
-    // Check after total 1 sec
-    expect(result.current).toBe(1);
+    expect(result.current).toEqual([{showSuccessMessage: false}, expect.any(Function)])
 
-    // Fast-forward 1 more sec
-    act(() => {
-      jest.advanceTimersByTime(1000);
-    });
+    act(() => setFlashState({showSuccessMessage: true}))
+    expect(result.current).toEqual([{showSuccessMessage: true}, expect.any(Function)])
 
-    // Check after total 2 sec
-    expect(result.current).toBe(2);
+    act(() => jest.advanceTimersByTime(1000))
+    expect(result.current).toEqual([{showSuccessMessage: false}, expect.any(Function)])
   })
 })

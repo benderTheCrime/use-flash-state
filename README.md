@@ -13,15 +13,25 @@ npm install --save use-flash-state
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React from 'react'
 
-import { useMyHook } from 'use-flash-state'
+import {useFlashState} from 'use-flash-state'
+
+import {Banner, Button, Form} from '@benderthecrime/components'
 
 const Example = () => {
-  const example = useMyHook()
-  return (
-    <div>{example}</div>
-  )
+  const [{showSuccessMessage}, setFlashState] = useFlashState({showSuccessMessage: false})
+
+  return <Form
+    onSubmit={(e) => {
+      e.preventDefault()
+      // ...
+      setFlashState({showSuccessMessage: true})
+    }}
+  >
+    <Banner open={showSuccessMessage}>Success</Banner>
+    <Button type="submit">
+  </Form>
 }
 ```
 

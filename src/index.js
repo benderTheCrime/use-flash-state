@@ -1,21 +1,12 @@
-import * as React from 'react'
+import {useState} from 'react'
 
-export const useMyHook = () => {
-  let [{
-    counter
-  }, setState] = React.useState({
-    counter: 0
-  })
+export const useFlashState = (initialState, timeout = 2E3) => {
+  const [state, setState] = useState(initialState)
 
-  React.useEffect(() => {
-    let interval = window.setInterval(() => {
-      counter++
-      setState({counter})
-    }, 1000)
-    return () => {
-      window.clearInterval(interval)
-    }
-  }, [])
+  const dispatch = (flashState) => {
+    setTimeout(setState, timeout, state)
+    setState(flashState)
+  }
 
-  return counter
+  return [state, dispatch]
 }
